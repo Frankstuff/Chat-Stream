@@ -1,0 +1,53 @@
+{
+  "name": "chat-stream",
+  "productName": "Chat Stream",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local read-only Twitch and YouTube chat overlay",
+  "main": "dist/main/index.js",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "npm run build && electron .",
+    "demo": "npm run build && electron . --demo",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "test:smoke": "npm run build && node scripts/smoke.mjs",
+    "package": "npm run build && electron-builder --mac dir",
+    "format": "prettier --write src tests scripts package.json tsconfig.json README.md",
+    "format:check": "prettier --check src tests scripts package.json tsconfig.json README.md",
+    "test:click-through": "npm run build && node scripts/test-click-through.mjs"
+  },
+  "build": {
+    "appId": "local.chatstream.desktop",
+    "productName": "Chat Stream",
+    "files": [
+      "dist/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": "dir",
+      "identity": null
+    },
+    "directories": {
+      "output": "release"
+    }
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.14.0",
+    "@grpc/proto-loader": "^0.8.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/ws": "^8.18.0",
+    "electron": "^41.0.0",
+    "electron-builder": "^26.0.0",
+    "esbuild": "^0.27.0",
+    "playwright": "^1.58.0",
+    "prettier": "^3.9.9",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.0"
+  }
+}
